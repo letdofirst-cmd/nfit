@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Content Security Policy: only this site's own scripts run, so injected code cannot execute. Video embeds are limited to YouTube and Vimeo. -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src https://fonts.gstatic.com;
+    img-src 'self' data: blob:;
+    media-src 'self' blob: https: http:;
+    frame-src https://www.youtube-nocookie.com https://player.vimeo.com;
+    connect-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FitLife: small movement and nutrition habits that fit a real day, at work, at home or on the go.">
+  <meta name="theme-color" content="#10241c">
+  <title>FitLife | Move more, feel better</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts load without blocking the page. If they are slow or blocked, the fallback stacks in styles.css are used. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap" media="print" data-font>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <noscript><p style="padding:24px;font-family:sans-serif">FitLife needs JavaScript to run. Please enable it and reload.</p></noscript>
+
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+  <!-- Log in / sign up -->
+  <div id="auth-view" class="auth-view hidden">
+    <section class="auth-hero">
+      <div class="brand brand-light"><span class="brand-mark" aria-hidden="true">✦</span><span class="app-name">FitLife</span></div>
+      <div class="auth-hero-copy">
+        <h1>Sit less.<br>Move more.<br>Live better.</h1>
+        <p>Small, realistic movement and nutrition habits that fit a busy day, whether you work at a desk, on your feet, or at home.</p>
+        <div class="hero-stat-row">
+          <span><strong>10 min</strong><small>can change your day</small></span>
+          <span><strong>100%</strong><small>your pace, your plan</small></span>
+        </div>
+      </div>
+      <svg class="pulse" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,64 130,64 156,64 176,22 200,104 224,64 350,64 376,64 396,34 416,92 436,64 600,64"/></svg>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab active" data-auth-tab="login" role="tab">Log in</button>
+        <button type="button" class="auth-tab" data-auth-tab="signup" role="tab">Create account</button>
+      </div>
+
+      <div id="login-form-wrap">
+        <h2>Welcome back.</h2>
+        <p class="muted">Pick up where you left off. Your progress stays in this browser.</p>
+        <form id="login-form" class="form-stack" novalidate>
+          <label>Email<input required type="email" name="email" placeholder="you@example.com" autocomplete="email"></label>
+          <label>Password<input required type="password" name="password" placeholder="Your password" autocomplete="current-password"></label>
+          <p id="login-error" class="form-error" role="alert"></p>
+          <button class="btn btn-primary btn-wide" type="submit">Log in</button>
+        </form>
+        <p class="auth-footnote">New here? Choose Create account to get started.</p>
+      </div>
+
+      <div id="signup-form-wrap" class="hidden">
+        <h2>Make movement a habit.</h2>
+        <p class="muted">A quick profile lets us suggest the right sessions for your day.</p>
+        <form id="signup-form" class="form-stack" novalidate>
+          <label>Your name<input required name="name" placeholder="Your full name" autocomplete="name"></label>
+          <label>Email<input required type="email" name="email" placeholder="you@example.com" autocomplete="email"></label>
+          <label>Password<input required minlength="6" type="password" name="password" placeholder="At least 6 characters" autocomplete="new-password"></label>
+          <label>What describes you best?<select name="occupation"></select></label>
+          <p id="signup-error" class="form-error" role="alert"></p>
+          <button class="btn btn-primary btn-wide" type="submit">Create my profile</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- The app -->
+  <div id="app-view" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span class="app-name">FitLife</span></div>
+      <div id="user-nav">
+      <p class="sidebar-label">Your space</p>
+      <nav class="side-nav" id="side-nav" aria-label="Main">
+        <button type="button" data-route="home" class="nav-item"><span aria-hidden="true">⌂</span>Home</button>
+        <button type="button" data-route="dashboard" class="nav-item"><span aria-hidden="true">◈</span>Dashboard</button>
+        <button type="button" data-route="exercises" class="nav-item"><span aria-hidden="true">◉</span>Exercises</button>
+        <button type="button" data-route="desk" class="nav-item"><span aria-hidden="true">⌁</span>Desk Fitness</button>
+        <button type="button" data-route="yoga" class="nav-item"><span aria-hidden="true">◌</span>Yoga</button>
+        <button type="button" data-route="plans" class="nav-item"><span aria-hidden="true">▦</span>Workout Plans</button>
+        <button type="button" data-route="nutrition" class="nav-item"><span aria-hidden="true">◒</span>Nutrition</button>
+        <button type="button" data-route="progress" class="nav-item"><span aria-hidden="true">↗</span>Progress</button>
+        <button type="button" data-route="leaderboard" class="nav-item"><span aria-hidden="true">♜</span>Leaderboard</button>
+      </nav>
+      <p class="sidebar-label">Account</p>
+      <nav class="side-nav" aria-label="Account">
+        <button type="button" data-route="profile" class="nav-item"><span aria-hidden="true">◎</span>Profile</button>
+      </nav>
+      </div>
+      <div id="admin-nav" class="hidden">
+        <p class="sidebar-label">Admin</p>
+        <nav class="side-nav" aria-label="Admin">
+          <button type="button" data-route="admin" class="nav-item"><span aria-hidden="true">◈</span>Overview</button>
+          <button type="button" data-route="admin-videos" class="nav-item"><span aria-hidden="true">▶</span>Exercise videos</button>
+          <button type="button" data-route="admin-exercises" class="nav-item"><span aria-hidden="true">✚</span>Manage exercises</button>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="mini-motivation"><p id="sidebar-message"></p></div>
+        <button type="button" id="logout-btn" class="logout-btn" data-action="logout"><span aria-hidden="true">↪</span> Log out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button type="button" id="mobile-menu" class="icon-btn mobile-only" data-action="toggle-menu" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb"><span class="app-name">FitLife</span><b>/</b><strong id="page-title">Home</strong></div>
+        <div class="topbar-actions">
+          <button type="button" class="icon-btn" id="reminder-btn" data-action="open-reminder" aria-label="Movement break reminders" aria-pressed="false" title="Movement break reminders">◷</button>
+          <button type="button" class="profile-chip" data-route="profile">
+            <span class="avatar" id="top-avatar">F</span>
+            <span class="profile-chip-text"><b id="top-name"></b><small id="top-department"></small></span>
+          </button>
+          <button type="button" class="btn btn-ghost btn-sm top-logout" id="top-logout-btn" data-action="logout">Log out</button>
+        </div>
+      </header>
+      <div id="page-content" class="page-content"></div>
+    </main>
+  </div>
+
+  <div id="scrim" class="scrim"></div>
+  <div id="modal-root"></div>
+
+  <script src="./data.js"></script>
+  <script src="./backend.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

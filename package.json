@@ -1,0 +1,17 @@
+{
+  "name": "fitlife",
+  "version": "1.0.0",
+  "description": "FitLife: small movement and nutrition habits for real days. Plain HTML, CSS and JavaScript; data stays in the browser.",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/backend.test.js",
+    "test:ui": "node -e \"const fs=require('fs'); const p='tests/ui.test.js'; if (!fs.existsSync(p)) { console.log('UI tests not present in this checkout; skipping.'); process.exit(0); } require('./tests/ui.test.js');\" && node -e \"const fs=require('fs'); const p='tests/ui-admin.test.js'; if (!fs.existsSync(p)) { console.log('Admin UI tests not present in this checkout; skipping.'); process.exit(0); } require('./tests/ui-admin.test.js');\"",
+    "admin:password": "node tools/make-admin-hash.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  },
+  "engines": { "node": ">=18" }
+}
